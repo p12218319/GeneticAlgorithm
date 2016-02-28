@@ -32,7 +32,7 @@ namespace P12218319 { namespace ga{
         \version 0.1
     */
 	template<class GENOME>
-	struct Phenotype {
+	struct P12218319_EXPORT_API Phenotype {
 		typedef GENOME Genome;     //!< The genome type for this phenotype
 		
 		Genome genome;             //!< The genome that contains the genetic information

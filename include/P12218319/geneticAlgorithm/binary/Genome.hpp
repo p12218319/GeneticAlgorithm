@@ -30,7 +30,7 @@ namespace P12218319 { namespace ga{ namespace binary{
         \version 0.1
     */
     template<const uint32_t TOTAL_BYTES_>
-    struct Genome {
+    struct P12218319_EXPORT_API Genome {
 		enum {
 			TOTAL_BYTES = TOTAL_BYTES_
 		};

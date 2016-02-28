@@ -30,7 +30,7 @@ namespace P12218319 { namespace ga {
         \version 0.1
     */
     template<class GENOME, const uint32_t POPULATION_SIZE_, const uint32_t CHILDREN_PER_GENERATION_, const uint32_t PARENTS_PER_CHILD_>
-    class Algorithm {
+    class P12218319_EXPORT_API Algorithm {
     public:
         enum {
             POPULATION_SIZE = POPULATION_SIZE_,
@@ -50,32 +50,32 @@ namespace P12218319 { namespace ga {
 		Phenotype** mParentBuffer;
 		Phenotype** mSurvivorBuffer;
     protected:
-        virtual void Initialise(Genome& aGenome) const = 0;
-        virtual Fitness CalculateFitness(const Genome& aGenome) const = 0;
-        virtual void SelectParents() = 0;
-        virtual void Crossover(Genome& aGenome) const = 0;
-        virtual void Mutate(Genome& aGenome) const = 0;
-        virtual void SelectSurvivors() = 0;
-        virtual bool ShouldTerminate() const = 0;
+        virtual void P12218319_CALL Initialise(Genome& aGenome) const = 0;
+        virtual Fitness P12218319_CALL CalculateFitness(const Genome& aGenome) const = 0;
+        virtual void P12218319_CALL SelectParents() = 0;
+        virtual void P12218319_CALL Crossover(Genome& aGenome) const = 0;
+        virtual void P12218319_CALL Mutate(Genome& aGenome) const = 0;
+        virtual void P12218319_CALL SelectSurvivors() = 0;
+        virtual bool P12218319_CALL ShouldTerminate() const = 0;
 
-		virtual void OnGenerationBegin() = 0;
-		virtual void OnChildGeneration() = 0;
-		virtual void OnSurvivorSelection() = 0;
-		virtual void OnGenerationEnd() = 0;
+		virtual void P12218319_CALL OnGenerationBegin() = 0;
+		virtual void P12218319_CALL OnChildGeneration() = 0;
+		virtual void P12218319_CALL OnSurvivorSelection() = 0;
+		virtual void P12218319_CALL OnGenerationEnd() = 0;
     public:
-		Algorithm(Randomiser& aRandomiser) :
+		P12218319_CALL Algorithm(Randomiser& aRandomiser) :
             mGenerationCount(0),
 			mRandomiser(aRandomiser)
         {}
 
-        virtual ~Algorithm() {
+        virtual P12218319_CALL ~Algorithm() {
         }
 
-		inline uint32_t GetGeneration() const {
+		inline uint32_t P12218319_CALL GetGeneration() const {
 			return mGenerationCount;
 		}
 
-        const Phenotype* operator()() {
+        const Phenotype* P12218319_CALL operator()() {
 			Phenotype* population = mPopulationBufferA;
 			Phenotype children[CHILDREN_PER_GENERATION];
 			Phenotype* populationBuffer[POPULATION_SIZE + CHILDREN_PER_GENERATION];

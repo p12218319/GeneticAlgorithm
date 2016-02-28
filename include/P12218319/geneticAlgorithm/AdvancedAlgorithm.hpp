@@ -29,7 +29,7 @@ namespace P12218319 { namespace ga {
         \version 0.1
     */
     template<class GENOME, const uint32_t POPULATION_SIZE, const uint32_t CHILDREN_PER_GENERATION, const uint32_t PARENTS_PER_CHILD>
-    class AdvancedAlgorithm : public Algorithm<GENOME, POPULATION_SIZE, CHILDREN_PER_GENERATION, PARENTS_PER_CHILD> {
+    class P12218319_EXPORT_API AdvancedAlgorithm : public Algorithm<GENOME, POPULATION_SIZE, CHILDREN_PER_GENERATION, PARENTS_PER_CHILD> {
 	private:
 		typedef Algorithm<GENOME, POPULATION_SIZE, CHILDREN_PER_GENERATION, PARENTS_PER_CHILD> ParentClass;
     private:
@@ -40,7 +40,7 @@ namespace P12218319 { namespace ga {
 		uint16_t mMinAge;
 		uint16_t mAvgAge;
 	private:
-		void PreCalculate() {
+		void P12218319_CALL PreCalculate() {
 			mMinFitness = UINT16_MAX;
             mMaxFitness = 0;
             mAvgFitness = 0;
@@ -61,70 +61,70 @@ namespace P12218319 { namespace ga {
 		}
     public:
 		// Inherited from algorithm
-		virtual void OnGenerationBegin() override {
+		virtual void P12218319_CALL OnGenerationBegin() override {
 			if(ParentClass::GetGeneration() == 0) {
 				PreCalculate();
 			}
 		}
 
-		virtual void OnChildGeneration() override {
+		virtual void P12218319_CALL OnChildGeneration() override {
 
 		}
 
-		virtual void OnSurvivorSelection() override {
+		virtual void P12218319_CALL OnSurvivorSelection() override {
 
 		}
 
-		virtual void OnGenerationEnd() override {
+		virtual void P12218319_CALL OnGenerationEnd() override {
 			PreCalculate();
 		}
 
     public:
-        AdvancedAlgorithm(Randomiser& aRandomiser) :
+		P12218319_CALL AdvancedAlgorithm(Randomiser& aRandomiser) :
 			Algorithm(aRandomiser)
 		{}
 
-        virtual ~AdvancedAlgorithm() {
+        virtual P12218319_CALL ~AdvancedAlgorithm() {
 
         }
 
 		// population analysis
 
-        inline Fitness GetMaxFitness() const {
+        inline Fitness P12218319_CALL GetMaxFitness() const {
             return mMaxFitness;
         }
 
-        inline Fitness GetMinFitness() const {
+        inline Fitness P12218319_CALL GetMinFitness() const {
             return mMinFitness;
         }
 
-        inline Fitness GetAvgFitness() const {
+        inline Fitness P12218319_CALL GetAvgFitness() const {
             return mAvgFitness;
         }
 
-        inline uint32_t GetMaxAge() const {
+        inline uint32_t P12218319_CALL GetMaxAge() const {
             return mMaxAge;
         }
 
-        inline uint32_t GetMinAge() const {
+        inline uint32_t P12218319_CALL GetMinAge() const {
             return mMinAge;
         }
 
-        inline uint32_t GetAvgAge() const {
+        inline uint32_t P12218319_CALL GetAvgAge() const {
             return mAvgAge;
         }
 
 		// Selection helpers
 
 		template<const uint32_t INPUT_COUNT, const uint32_t OUTPUT_COUNT, class T = ParentClass::Phenotype*>
-		void SelectRandom(T* aInputs, T* aOutputs) const {
+		void P12218319_CALL SelectRandom(T* aInputs, T* aOutputs) const {
 			for(uint32_t i = 0; i < OUTPUT_COUNT; ++i) {
 				aOutputs[i] = aInputs[mRandomiser.Next32u() % INPUT_COUNT];
 			}
 		}
 
 		template<const uint32_t INPUT_COUNT, const uint32_t OUTPUT_COUNT, class T = ParentClass::Phenotype*>
-		void SelectRandomSet(T* aInputs, T* aOutputs) const {
+		void P12218319_CALL SelectRandomSet(T* aInputs, T* aOutputs) const {
 			for(uint32_t i = 0; i < OUTPUT_COUNT; ++i) {
 				bool repeat = true;
 				while(repeat) {
@@ -139,7 +139,7 @@ namespace P12218319 { namespace ga {
 		}
 
 		template<const uint32_t INPUT_COUNT, const uint32_t OUTPUT_COUNT, class T = ParentClass::Phenotype*>
-		static void SelectFittest(T* aInputs, T* aOutputs) {
+		static void P12218319_CALL SelectFittest(T* aInputs, T* aOutputs) {
 			T tmp[INPUT_COUNT];
 			for(int32_t i = 0; i < INPUT_COUNT; ++i) tmp[i] = aInputs[i];
 			std::sort(tmp, tmp + INPUT_COUNT, [](const ParentClass::Phenotype* const aLeft, const ParentClass::Phenotype* const aRight)->bool {
@@ -149,7 +149,7 @@ namespace P12218319 { namespace ga {
 		}
 
 		template<const uint32_t INPUT_COUNT, const uint32_t OUTPUT_COUNT, class T = ParentClass::Phenotype*>
-		static void SelectUnfittest(T* aInputs, T* aOutputs) {
+		static void P12218319_CALL SelectUnfittest(T* aInputs, T* aOutputs) {
 			T tmp[INPUT_COUNT];
 			for(int32_t i = 0; i < INPUT_COUNT; ++i) tmp[i] = aInputs[i];
 			std::sort(tmp, tmp + INPUT_COUNT, [](const ParentClass::Phenotype* const aLeft, const ParentClass::Phenotype* const aRight)->bool {
@@ -159,7 +159,7 @@ namespace P12218319 { namespace ga {
 		}
 
 		template<const uint32_t INPUT_COUNT, const uint32_t OUTPUT_COUNT, class T = ParentClass::Phenotype*>
-		static void SelectOldest(T* aInputs, T* aOutputs) {
+		static void P12218319_CALL SelectOldest(T* aInputs, T* aOutputs) {
 			T tmp[INPUT_COUNT];
 			for(int32_t i = 0; i < INPUT_COUNT; ++i) tmp[i] = aInputs[i];
 			std::sort(tmp, tmp + INPUT_COUNT, [](const ParentClass::Phenotype* const aLeft, const ParentClass::Phenotype* const aRight)->bool {
@@ -169,7 +169,7 @@ namespace P12218319 { namespace ga {
 		}
 
 		template<const uint32_t INPUT_COUNT, const uint32_t OUTPUT_COUNT, class T = ParentClass::Phenotype*>
-		static void SelectYoungest(T* aInputs, T* aOutputs) {
+		static void P12218319_CALL SelectYoungest(T* aInputs, T* aOutputs) {
 			T tmp[INPUT_COUNT];
 			for(int32_t i = 0; i < INPUT_COUNT; ++i) tmp[i] = aInputs[i];
 			std::sort(tmp, tmp + INPUT_COUNT, [](const ParentClass::Phenotype* const aLeft, const ParentClass::Phenotype* const aRight)->bool {
@@ -179,7 +179,7 @@ namespace P12218319 { namespace ga {
 		}
 
 		template<const uint32_t INPUT_COUNT, const uint32_t OUTPUT_COUNT, class T = ParentClass::Phenotype*>
-		static void SelectParents(T* aInputs, T* aOutputs) {
+		static void P12218319_CALL SelectParents(T* aInputs, T* aOutputs) {
 			T tmp[INPUT_COUNT];
 			for(int32_t i = 0; i < INPUT_COUNT; ++i) tmp[i] = aInputs[i];
 			std::sort(tmp, tmp + INPUT_COUNT, [](const ParentClass::Phenotype* const aLeft, const ParentClass::Phenotype* const aRight)->bool {
@@ -189,7 +189,7 @@ namespace P12218319 { namespace ga {
 		}
 
 		template<const uint32_t INPUT_COUNT, const uint32_t OUTPUT_COUNT, class T = ParentClass::Phenotype*>
-		static void SelectNonParents(T* aInputs, T* aOutputs) {
+		static void P12218319_CALL SelectNonParents(T* aInputs, T* aOutputs) {
 			T tmp[INPUT_COUNT];
 			for(int32_t i = 0; i < INPUT_COUNT; ++i) tmp[i] = aInputs[i];
 			std::sort(tmp, tmp + INPUT_COUNT, [](const ParentClass::Phenotype* const aLeft, const ParentClass::Phenotype* const aRight)->bool {
@@ -199,7 +199,7 @@ namespace P12218319 { namespace ga {
 		}
 
 		template<const uint32_t INPUT_COUNT, const uint32_t OUTPUT_COUNT, class T = ParentClass::Phenotype*>
-		static void SelectChildren(T* aInputs, T* aOutputs) {
+		static void P12218319_CALL SelectChildren(T* aInputs, T* aOutputs) {
 			T tmp[INPUT_COUNT];
 			for(int32_t i = 0; i < INPUT_COUNT; ++i) tmp[i] = aInputs[i];
 			std::sort(tmp, tmp + INPUT_COUNT, [](const ParentClass::Phenotype* const aLeft, const ParentClass::Phenotype* const aRight)->bool {
@@ -209,7 +209,7 @@ namespace P12218319 { namespace ga {
 		}
 
 		template<const uint32_t INPUT_COUNT, const uint32_t OUTPUT_COUNT, class T = ParentClass::Phenotype*>
-		static void SelectNonChildren(T* aInputs, T* aOutputs) {
+		static void P12218319_CALL SelectNonChildren(T* aInputs, T* aOutputs) {
 			T tmp[INPUT_COUNT];
 			for(int32_t i = 0; i < INPUT_COUNT; ++i) tmp[i] = aInputs[i];
 			std::sort(tmp, tmp + INPUT_COUNT, [](const ParentClass::Phenotype* const aLeft, const ParentClass::Phenotype* const aRight)->bool {

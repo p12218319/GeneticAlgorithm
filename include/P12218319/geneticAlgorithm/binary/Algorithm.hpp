@@ -29,7 +29,7 @@ namespace P12218319 { namespace ga { namespace binary{
         \version 0.1
     */
     template<class GENOME, const uint32_t POPULATION_SIZE, const uint32_t CHILDREN_PER_GENERATION, const uint32_t PARENTS_PER_CHILD>
-    class Algorithm : public AdvancedAlgorithm<GENOME, POPULATION_SIZE, CHILDREN_PER_GENERATION, PARENTS_PER_CHILD> {
+    class P12218319_EXPORT_API Algorithm : public AdvancedAlgorithm<GENOME, POPULATION_SIZE, CHILDREN_PER_GENERATION, PARENTS_PER_CHILD> {
 	public:
 		enum MutationMode {
 			MODE_SET,
@@ -40,18 +40,18 @@ namespace P12218319 { namespace ga { namespace binary{
     private:
         typedef AdvancedAlgorithm<GENOME, POPULATION_SIZE, CHILDREN_PER_GENERATION, PARENTS_PER_CHILD> ParentClass;
     public:
-		Algorithm(Randomiser& aRandomiser) :
+		P12218319_CALL Algorithm(Randomiser& aRandomiser) :
 			AdvancedAlgorithm(aRandomiser)
 		{}
 
-        virtual ~Algorithm() {
+        virtual P12218319_CALL ~Algorithm() {
 
         }
 
 		// mutation
 
 		template<const uint8_t MUTATION_RATE, const MutationMode MODE = MODE_FLIP, const uint32_t MAX_MUTATIONS = ParentClass::Genome::TOTAL_BYTES * 8>
-		void RandomMutationBit(typename ParentClass::Genome& aGenome) const {
+		void P12218319_CALL RandomMutationBit(typename ParentClass::Genome& aGenome) const {
 			// Perform mutation
 			uint32_t mutations = 0;
 			for (uint32_t i = 0; i < ParentClass::Genome::TOTAL_BYTES; ++i) {
@@ -86,7 +86,7 @@ namespace P12218319 { namespace ga { namespace binary{
 		}
 
 		template<const uint8_t MUTATION_RATE, const MutationMode MODE = MODE_RANDOM, const uint32_t MAX_MUTATIONS = ParentClass::Genome::TOTAL_BYTES>
-		void RandomMutationByte(typename ParentClass::Genome& aGenome) const {
+		void P12218319_CALL RandomMutationByte(typename ParentClass::Genome& aGenome) const {
 			uint32_t mutations = 0;
 			for (uint32_t i = 0; i < ParentClass::Genome::TOTAL_BYTES; ++i) {
 				if ((mRandomiser.Next32u() % 100) < MUTATION_RATE) {
@@ -111,7 +111,7 @@ namespace P12218319 { namespace ga { namespace binary{
 		}
 
 		template<const uint8_t MUTATION_RATE, const uint32_t SWAPS = 1>
-		void SwapBits(typename ParentClass::Genome& aGenome) const {
+		void P12218319_CALL SwapBits(typename ParentClass::Genome& aGenome) const {
 			for(uint32_t i = 0; i < SWAPS; ++i) if((mRandomiser.Next32u() % 100) < MUTATION_RATE) {
 				const uint32_t bit0 = mRandomiser.Next32u() % (ParentClass::Genome::TOTAL_BYTES * 8);
 				const uint32_t bit1 = mRandomiser.Next32u() % (ParentClass::Genome::TOTAL_BYTES * 8);
@@ -131,7 +131,7 @@ namespace P12218319 { namespace ga { namespace binary{
 
 		// crossover
 
-		void UniformCrossoverBit(typename ParentClass::Genome& aGenome) const {
+		void P12218319_CALL UniformCrossoverBit(typename ParentClass::Genome& aGenome) const {
 			for(uint32_t i = 0; i < ParentClass::Genome::TOTAL_BYTES; ++i) {
 				uint8_t mask = 1;
 				aGenome.genes[i] = 0;
@@ -143,13 +143,13 @@ namespace P12218319 { namespace ga { namespace binary{
 			}
 		}
 
-		void UniformCrossoverByte(typename ParentClass::Genome& aGenome) const {
+		void P12218319_CALL UniformCrossoverByte(typename ParentClass::Genome& aGenome) const {
 			for(uint32_t i = 0; i < ParentClass::Genome::TOTAL_BYTES; ++i) {
 				aGenome.genes[i] = mParentBuffer[mRandomiser.Next32u() % ParentClass::PARENTS_PER_CHILD]->genome.genes[i];
 			}
 		}
 
-		void HighByteCrossover(typename ParentClass::Genome& aGenome) const {
+		void P12218319_CALL HighByteCrossover(typename ParentClass::Genome& aGenome) const {
 			for(uint32_t i = 0; i < ParentClass::Genome::TOTAL_BYTES; ++i) {
 				uint8_t high = mParentBuffer[0]->genes[i];
 				for(uint32_t j = 1; j < ParentClass::PARENTS_PER_CHILD; ++j) if(high < mParentBuffer[j]->genes[i]) high = mParentBuffer[j]->genome.genes[i];
@@ -157,7 +157,7 @@ namespace P12218319 { namespace ga { namespace binary{
 			}
 		}
 
-		void LowByteCrossover(typename ParentClass::Genome& aGenome) const {
+		void P12218319_CALL LowByteCrossover(typename ParentClass::Genome& aGenome) const {
 			for (uint32_t i = 0; i < ParentClass::Genome::TOTAL_BYTES; ++i) {
 				uint8_t low = mParentBuffer[0]->genes[i];
 				for(uint32_t j = 1; j < ParentClass::PARENTS_PER_CHILD; ++j) if (low > mParentBuffer[j]->genes[i]) low = mParentBuffer[j]->genome.genes[i];
@@ -165,7 +165,7 @@ namespace P12218319 { namespace ga { namespace binary{
 			}
 		}
 
-		void OnePointCrossoverByte(typename ParentClass::Genome& aGenome) const {
+		void P12218319_CALL OnePointCrossoverByte(typename ParentClass::Genome& aGenome) const {
 			enum {
 				avg_length = ParentClass::Genome::TOTAL_BYTES / ParentClass::PARENTS_PER_CHILD
 			};
